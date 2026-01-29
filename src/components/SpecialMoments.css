@@ -1,0 +1,125 @@
+.special-moments {
+  background: radial-gradient(circle at top center, rgba(255, 107, 157, 0.1) 0%, transparent 50%);
+}
+
+.moments-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  margin-bottom: 4rem;
+}
+
+.moments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.moment-card {
+  position: relative;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+  transition: var(--transition-smooth);
+}
+
+.moment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--moment-gradient);
+  opacity: 0;
+  transition: var(--transition-smooth);
+}
+
+.moment-card:hover::before,
+.moment-card.selected::before {
+  opacity: 1;
+}
+
+.moment-card:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+.moment-card.selected {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(255, 107, 157, 0.4);
+}
+
+.moment-emoji {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  transition: var(--transition-bounce);
+}
+
+.moment-card:hover .moment-emoji {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.moment-card.selected .moment-emoji {
+  animation: heartbeat 1s infinite ease-in-out;
+}
+
+.moment-title {
+  font-size: 1.5rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+  font-family: var(--font-heading);
+}
+
+.moment-description {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-weight: 300;
+  opacity: 0.8;
+  transition: var(--transition-smooth);
+}
+
+.moment-card:hover .moment-description,
+.moment-card.selected .moment-description {
+  opacity: 1;
+  color: var(--text-light);
+}
+
+.moment-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--moment-gradient);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.moment-card.selected .moment-overlay {
+  opacity: 0.1;
+}
+
+@media (max-width: 768px) {
+  .moments-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .moment-card {
+    padding: 1.5rem;
+  }
+  
+  .moment-emoji {
+    font-size: 3rem;
+  }
+}
