@@ -148,3 +148,12 @@
     height: 70px;
   }
 }
+
+/* Special handling for very small screens like iPhone SE */
+@media (max-width: 375px) {
+  .hero-btn {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+}
+

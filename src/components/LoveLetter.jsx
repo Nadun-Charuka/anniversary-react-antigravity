@@ -1,8 +1,53 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './LoveLetter.css'
 
 function LoveLetter() {
   const [isOpen, setIsOpen] = useState(false)
+
+  // Lock body scroll when letter is open
+  useEffect(() => {
+    if (isOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollY}px`
+      document.body.style.width = '100%'
+      document.body.style.overflow = 'hidden'
+    } else {
+      // Restore scroll position
+      const scrollY = document.body.style.top
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
+      document.body.style.overflow = ''
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1)
+      }
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
+      document.body.style.overflow = ''
+    }
+  }, [isOpen])
+
+  const handleOpen = () => {
+    setIsOpen(true)
+  }
+
+  const handleClose = () => {
+    setIsOpen(false)
+    // Scroll to footer after closing
+    setTimeout(() => {
+      const footer = document.querySelector('footer')
+      if (footer) {
+        footer.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 300) // Wait for close animation
+  }
 
   return (
     <section className="love-letter">
@@ -15,14 +60,14 @@ function LoveLetter() {
       </div>
         
         <div className={`envelope-wrapper ${isOpen ? 'opened' : ''}`}>
-          <div className="envelope" onClick={() => !isOpen && setIsOpen(true)}>
+          <div className="envelope" onClick={() => !isOpen && handleOpen()}>
             <div className="envelope-flap"></div>
             <div className="envelope-body"></div>
             <div className="heart-seal">💌</div>
           </div>
           
           <div className="letter-content glass-card">
-            <button className="close-letter-btn" onClick={() => setIsOpen(false)} aria-label="Close letter">
+            <button className="close-letter-btn" onClick={handleClose} aria-label="Close letter">
               ✕
             </button>
             <div className="letter-header">
@@ -73,3 +118,4 @@ function LoveLetter() {
 }
 
 export default LoveLetter
+

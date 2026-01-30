@@ -39,7 +39,7 @@ function Hero({ onEnter }) {
         
         <div className="hero-date">
           <span className="date-label">Together Since</span>
-          <span className="date-value">January 29, 2025</span>
+          <span className="date-value">January 03, 2025</span>
         </div>
         
         <button className="btn btn-primary hero-btn" onClick={handleEnter}>

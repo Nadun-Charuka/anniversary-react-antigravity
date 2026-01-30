@@ -33,7 +33,7 @@ function App() {
     <div className="app">
       <div className="particles"></div>
       <FloatingHearts />
-      <MusicPlayer />
+      <MusicPlayer showContent={showContent} />
       
       <Hero onEnter={() => setShowContent(true)} />
       
